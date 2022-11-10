@@ -4,7 +4,7 @@ import { Images } from "../../assets/Themes";
 
 
 
-export default function SongList ({tracks}) {
+export default function SongList ({tracks, navigation}) {
 
     const renderSongItem = ({item, index}) => {
         return <Song 
@@ -14,6 +14,9 @@ export default function SongList ({tracks}) {
         artistName={item.artists[0].name}
         albumName={item.album.name}
         duration={item.duration_ms}
+        navigation={navigation}
+        external_url={item.external_urls.spotify}
+        preview_url={item.preview_url}
         />
     }
 

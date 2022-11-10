@@ -1,31 +1,38 @@
-import { StyleSheet, Image, SafeAreaView, Text, View} from "react-native";
+import { StyleSheet, Image, SafeAreaView, Text, View, Pressable} from "react-native";
 import { millisToMinutesAndSeconds } from "../../utils";
+import { Ionicons } from '@expo/vector-icons';
+import { Themes } from "../../assets/Themes";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+import { WebView } from "react-native-webview"
 
-export default function Song({index, imageUrl, songName, artistName, albumName, duration}) {
+
+export default function Song({imageUrl, songName, artistName, albumName, duration, navigation, preview_url, external_url}) {
+
 
     return (
         <SafeAreaView style={styles.songComponent}>
 
-            <View style={styles.songIndexBox}>
-                <Text style={styles.textStyle}>{index + 1}</Text>
-            </View>
-
-            <View style={styles.albumImageBox}>
+            <Pressable style={styles.songIndexBox} onPress={() => {navigation.navigate("song-preview", {link: preview_url})}}>
+                    <Ionicons name="play-circle" size={32} color={Themes.colors.spotify} />
+            </Pressable>
+            <Pressable style={styles.albumImageBox} onPress={() => {navigation.navigate("song-preview", {link: external_url})}}>
                 <Image style={styles.albumImageStyle} source={{uri: imageUrl}}></Image>
-            </View>
+            </Pressable>
 
-            <View style={styles.songInfo}>
+            <Pressable style={styles.songInfo} onPress={() => {navigation.navigate("song-preview", {link: external_url})}}>
                 <Text style={styles.textStyle} numberOfLines={1}>{songName}</Text>
                 <Text style={styles.textStyle} numberOfLines={1}>{artistName}</Text>
-            </View>
+            </Pressable>
 
-            <View style={styles.albumBox}>
+            <Pressable style={styles.albumBox} onPress={() => {navigation.navigate("song-preview", {link: external_url})}}>
                 <Text style={styles.textStyle} numberOfLines={1}> {albumName} </Text>
-            </View>
+            </Pressable>
 
-            <View style={styles.songDurationBox}>
+            <Pressable style={styles.songDurationBox} onPress={() => {navigation.navigate("song-preview", {link: external_url})}}>
                 <Text style={styles.textStyle}> {millisToMinutesAndSeconds(duration)} </Text>
-            </View>
+            </Pressable>
 
         </SafeAreaView>
     )
